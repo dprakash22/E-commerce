@@ -1,0 +1,34 @@
+{% extends 'shoptemp/layout/main.html' %}
+
+{% block content %}
+{% include 'shoptemp/includee/slider.html' %}
+<div class="container" style="margin-top:70px">
+    <div class="row">
+        <div class="col-12">
+            <h4 class="mb-3">Latest Offers</h4>
+            <hr style="border-color:#b8bfc2;">
+        </div>
+
+        {% for item in products %}
+            <div class="col-md-4 col-lg-3">
+                <div class="card my-3">
+                    {% if item.Product_image %}
+                        <img src="{{item.Product_image.url}}" class="card-image-top" alt="Categories" height="200px">
+                    {% else %}
+                        <p>No image</p>
+                    {% endif %}
+                    <a href="{% url 'product_details' item.Catagory.name item.name %}">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">{{ item.name }}</h5>
+                        <p class="card-text">
+                            <span class="float-start oldprice"><s>Rs.{{ item.original_price | stringformat:'d' }}</s></span>
+                            <span class="float-end sellprice">Rs.{{ item.selling_price | stringformat:'d' }}</span>
+                        </p>
+                    </div>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
